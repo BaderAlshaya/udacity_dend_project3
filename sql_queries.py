@@ -123,7 +123,7 @@ CREATE TABLE start_time
 staging_events_copy = ("""
 copy staging_events from {} 
 iam_role {}
-FORMAT AS JSON 's3://udacity-dend/log_json_path.json';
+FORMAT AS JSON {};
 """).format(
     config.get('S3', 'LOG_DATA'), 
     config.get('IAM_ROLE', 'ARN'), 
