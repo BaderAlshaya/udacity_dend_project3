@@ -60,48 +60,48 @@ CREATE TABLE staging_songs
 songplay_table_create = ("""
 CREATE TABLE songplay 
 (
-	songplay_id INTEGER IDENTITY(0,1) PRIMARY KEY,
-	start_time  TIMESTAMP NOT NULL, 
-	user_id     VARCHAR(10),
-	level       VARCHAR(10) NOT NULL,
-	song_id     VARCHAR(300) NOT NULL,
-	artist_id   VARCHAR(25) NOT NULL,
-	session_id  INTEGER NOT NULL,
-	location    VARCHAR(300) NOT NULL,
-	user_agent  VARCHAR(150) NOT NULL
+    songplay_id INTEGER IDENTITY(0,1) PRIMARY KEY,
+    start_time  TIMESTAMP NOT NULL, 
+    user_id     VARCHAR(10),
+    level       VARCHAR(10) NOT NULL,
+    song_id     VARCHAR(300) NOT NULL,
+    artist_id   VARCHAR(25) NOT NULL,
+    session_id  INTEGER NOT NULL,
+    location    VARCHAR(300) NOT NULL,
+    user_agent  VARCHAR(150) NOT NULL
 )
 """)
 
 user_table_create = ("""
 CREATE TABLE sparkify_user 
 (
-	user_id    VARCHAR(10) PRIMARY KEY,
-	first_name VARCHAR(25),
-	last_name  VARCHAR(25),
-	gender     VARCHAR(1),
-	level      VARCHAR(10) NOT NULL
+    user_id    VARCHAR(10) PRIMARY KEY,
+    first_name VARCHAR(25),
+    last_name  VARCHAR(25),
+    gender     VARCHAR(1),
+    level      VARCHAR(10) NOT NULL
 )
 """)
 
 song_table_create = ("""
 CREATE TABLE song 
 (
-	song_id   VARCHAR(25) PRIMARY KEY,
-	title     VARCHAR(300) NOT NULL,
-	artist_id VARCHAR(25) NOT NULL,
-	year      INTEGER,
-	duration  DECIMAL(9, 5) NOT NULL
+    song_id   VARCHAR(25) PRIMARY KEY,
+    title     VARCHAR(300) NOT NULL,
+    artist_id VARCHAR(25) NOT NULL,
+    year      INTEGER,
+    duration  DECIMAL(9, 5) NOT NULL
 )
 """)
 
 artist_table_create = ("""
 CREATE TABLE artist 
 (
-	artist_id VARCHAR(25) PRIMARY KEY,
-	name      VARCHAR(300) NOT NULL,
-	location  VARCHAR(300),
-	lattitude DECIMAL(7, 5),
-	longitude DECIMAL(8, 5)
+    artist_id VARCHAR(25) PRIMARY KEY,
+    name      VARCHAR(300) NOT NULL,
+    location  VARCHAR(300),
+    lattitude DECIMAL(7, 5),
+    longitude DECIMAL(8, 5)
 )
 """)
 
@@ -205,10 +205,10 @@ insert into artist(
     name,
     location,
     lattitude,
-	longitude
+    longitude
 )
 select 
-	artist_id, artist_name, artist_location, artist_latitude, artist_longitude
+    artist_id, artist_name, artist_location, artist_latitude, artist_longitude
 from (
   select
       ss.artist_id,
