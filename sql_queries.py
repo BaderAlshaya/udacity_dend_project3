@@ -4,7 +4,6 @@ import configparser
 # CONFIG
 config = configparser.ConfigParser()
 config.read('dwh.cfg')
-DWH_ROLE_ARN = config.get('IAM_ROLE', 'ARN')
 
 # DROP TABLES
 
@@ -234,7 +233,7 @@ insert into start_time(
     weekday
 )
 select 
-	timestamp 'epoch' + (ts / 1000) * interval '1 second' as start_date,
+    timestamp 'epoch' + (ts / 1000) * interval '1 second' as start_date,
     extract(hour from start_date) as hour,
     extract(day from start_date) as day,
     extract(week from start_date) as week,
