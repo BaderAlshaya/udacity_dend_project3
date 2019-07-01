@@ -233,13 +233,13 @@ insert into start_time(
     weekday
 )
 select 
-    timestamp 'epoch' + (ts / 1000) * interval '1 second' as start_date,
-    extract(hour from start_date) as hour,
-    extract(day from start_date) as day,
-    extract(week from start_date) as week,
-    extract(month from start_date) as month,
-    extract(year from start_date) as year,
-    extract(dow from start_date) as weekday
+    start_time,
+    extract(hour from start_time) as hour,
+    extract(day from start_time) as day,
+    extract(week from start_time) as week,
+    extract(month from start_time) as month,
+    extract(year from start_time) as year,
+    extract(dow from start_time) as weekday
 from (
   select 
   distinct sp.start_time
