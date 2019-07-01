@@ -46,8 +46,8 @@ CREATE TABLE staging_songs
 (
     num_songs        INTEGER,
     artist_id        VARCHAR(25), 
-    artist_latitude  DECIMAL(7, 5),
-    artist_longitude DECIMAL(8, 5),
+    artist_latitude  DECIMAL(10, 5),
+    artist_longitude DECIMAL(10, 5),
     artist_location  VARCHAR(300),
     artist_name      VARCHAR(300),
     song_id          VARCHAR(25),
@@ -63,12 +63,12 @@ CREATE TABLE songplay
     songplay_id INTEGER IDENTITY(0,1) PRIMARY KEY,
     start_time  TIMESTAMP NOT NULL, 
     user_id     VARCHAR(10),
-    level       VARCHAR(10) NOT NULL,
+    level       VARCHAR(10),
     song_id     VARCHAR(300) NOT NULL,
     artist_id   VARCHAR(25) NOT NULL,
-    session_id  INTEGER NOT NULL,
-    location    VARCHAR(300) NOT NULL,
-    user_agent  VARCHAR(150) NOT NULL
+    session_id  INTEGER,
+    location    VARCHAR(300),
+    user_agent  VARCHAR(150)
 )
 """)
 
@@ -79,7 +79,7 @@ CREATE TABLE sparkify_user
     first_name VARCHAR(25),
     last_name  VARCHAR(25),
     gender     VARCHAR(1),
-    level      VARCHAR(10) NOT NULL
+    level      VARCHAR(10)
 )
 """)
 
@@ -88,7 +88,7 @@ CREATE TABLE song
 (
     song_id   VARCHAR(25) PRIMARY KEY,
     title     VARCHAR(300) NOT NULL,
-    artist_id VARCHAR(25) NOT NULL,
+    artist_id VARCHAR(25),
     year      INTEGER,
     duration  DECIMAL(9, 5) NOT NULL
 )
@@ -100,8 +100,8 @@ CREATE TABLE artist
     artist_id VARCHAR(25) PRIMARY KEY,
     name      VARCHAR(300) NOT NULL,
     location  VARCHAR(300),
-    lattitude DECIMAL(7, 5),
-    longitude DECIMAL(8, 5)
+    lattitude DECIMAL(10, 5),
+    longitude DECIMAL(10, 5)
 )
 """)
 
@@ -109,12 +109,12 @@ time_table_create = ("""
 CREATE TABLE start_time 
 (
     start_time TIMESTAMP PRIMARY KEY,
-    hour       INTEGER NOT NULL,
-    day        INTEGER NOT NULL,
-    week       INTEGER NOT NULL,
-    month      INTEGER NOT NULL,
-    year       INTEGER NOT NULL,
-    weekday    INTEGER NOT NULL
+    hour       INTEGER,
+    day        INTEGER,
+    week       INTEGER,
+    month      INTEGER,
+    year       INTEGER,
+    weekday    INTEGER
 )
 """)
 
@@ -160,7 +160,7 @@ select
     se.location,
     se.user_agent
 from staging_events se
-inner join staging_songs ss on se.song = ss.title and se.artist = ss.artist_name
+inner join staging_songs ss on se.song = ss.title and se.artist = ss.artist_name and se.legnth = ss.duration
 where se.page = 'NextSong'
 """)
 
@@ -242,8 +242,8 @@ select
     extract(dow from start_date) as weekday
 from (
   select 
-  distinct se.ts
-  from staging_events se
+  distinct sp.start_time
+  from songplay sp
 )
 """)
 
